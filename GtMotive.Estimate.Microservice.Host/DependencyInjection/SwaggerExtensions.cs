@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using GtMotive.Estimate.Microservice.Host.Configuration;
 using GtMotive.Estimate.Microservice.Host.Infrastructure.Swagger;
@@ -31,6 +32,26 @@ namespace GtMotive.Estimate.Microservice.Host.DependencyInjection
                         Title = $"{AssemblyName} API",
                         Version = $"v{AssemblyVersion}",
                     });
+
+                    var baseDirectory = AppContext.BaseDirectory;
+                    var hostXml = Path.Combine(baseDirectory, "GtMotive.Estimate.Microservice.Host.xml");
+                    var apiXml = Path.Combine(baseDirectory, "GtMotive.Estimate.Microservice.Api.xml");
+                    var appCoreXml = Path.Combine(baseDirectory, "GtMotive.Estimate.Microservice.ApplicationCore.xml");
+
+                    if (File.Exists(hostXml))
+                    {
+                        options.IncludeXmlComments(hostXml);
+                    }
+
+                    if (File.Exists(apiXml))
+                    {
+                        options.IncludeXmlComments(apiXml);
+                    }
+
+                    if (File.Exists(appCoreXml))
+                    {
+                        options.IncludeXmlComments(appCoreXml);
+                    }
 
                     if (configuration.GetValue<string>("Swagger:EnableTryIt") == "Yes")
                     {
