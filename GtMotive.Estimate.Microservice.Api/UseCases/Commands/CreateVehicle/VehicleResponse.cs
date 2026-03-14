@@ -1,46 +1,29 @@
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace GtMotive.Estimate.Microservice.Api.UseCases.Commands.CreateVehicle
 {
     /// <summary>Vehicle response DTO.</summary>
-    public sealed class VehicleResponse
+    public sealed class VehicleResponse(Guid vehicleId, string brand, string model, DateTime manufactureDate, bool isAvailable)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="VehicleResponse"/> class.
-        /// </summary>
-        /// <param name="vehicleId">The vehicle identifier.</param>
-        /// <param name="brand">The vehicle brand.</param>
-        /// <param name="model">The vehicle model.</param>
-        /// <param name="manufactureDate">The vehicle manufacture date.</param>
-        /// <param name="isAvailable">Whether the vehicle is available.</param>
-        public VehicleResponse(Guid vehicleId, string brand, string model, DateTime manufactureDate, bool isAvailable)
-        {
-            VehicleId = vehicleId;
-            Brand = brand;
-            Model = model;
-            ManufactureDate = manufactureDate;
-            IsAvailable = isAvailable;
-        }
-
         /// <summary>Gets the vehicle unique identifier.</summary>
         [Required]
-        public Guid VehicleId { get; }
+        public Guid VehicleId { get; } = vehicleId;
 
         /// <summary>Gets the vehicle brand.</summary>
         [Required]
-        public string Brand { get; }
+        public string Brand { get; } = brand;
 
         /// <summary>Gets the vehicle model.</summary>
         [Required]
-        public string Model { get; }
+        public string Model { get; } = model;
 
         /// <summary>Gets the vehicle manufacture date.</summary>
         [Required]
-        public DateTime ManufactureDate { get; }
+        public DateTime ManufactureDate { get; } = manufactureDate;
 
         /// <summary>Gets a value indicating whether the vehicle is available for renting.</summary>
         [Required]
-        public bool IsAvailable { get; }
+        public bool IsAvailable { get; } = isAvailable;
     }
 }
